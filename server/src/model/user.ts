@@ -7,7 +7,7 @@ export interface IUser extends Document {
     role: string;
 }
 
-const userSchema = new Schema({
+const userSchema: Schema = new Schema({
     username: {
         type: String,
         required: true,
