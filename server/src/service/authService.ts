@@ -16,14 +16,4 @@ export default class AuthService {
         return await this.authRepository.createUser(user);
     }
 
-    async loginUser(email: string, password: string): Promise<any> {
-        const user = await this.authRepository.findByEmail(email);
-        if (user) {
-            const isPasswordValid = await this.authRepository.comparePasswords(password, user.password);
-            if (isPasswordValid) {
-                return { ...user, accessToken: this.helper.generateAccessToken({ id: user._id }), refreshToken: this.helper.generateRefreshToken({ id: user._id }) };
-            }
-        }
-        return null;
-    }
 }
