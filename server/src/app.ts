@@ -21,5 +21,5 @@ app.use("/api/auth", authRoutes);
 connectDB();
 
 app.listen(process.env.SERVER_PORT || 1234, () => {
-    console.log("Server is rıunning on port 1234");
+    console.log("Server is running on port 1234");
 })
