@@ -7,7 +7,7 @@ export default class AuthRepository {
     async createUser(user: IUser): Promise<IUser> {
         const hashedPassword = Crypto.createHash('sha256').update(user.password).digest('hex');
         user.password = hashedPassword;
-        return await user.save();
+        return await User.create(user);
     }
 
     async comparePasswords(password: string, hashedPassword: string): Promise<boolean> {
