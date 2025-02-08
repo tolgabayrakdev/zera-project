@@ -34,7 +34,10 @@ export default class AuthController {
             const user = await this.authService.loginUser(email, password);
             res.cookie('accessToken', user.accessToken, { httpOnly: true });
             res.cookie('refreshToken', user.refreshToken, { httpOnly: true });
-            res.status(200).json({ message: "Login successful" });
+            res.status(200).json({
+                accessToken: user.accessToken,
+                refreshToken: user.refreshToken
+            });
         } catch (error) {
             if (error instanceof HttpException) {
                 res.status(error.status).json({ message: error.message });
