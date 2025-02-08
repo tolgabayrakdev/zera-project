@@ -20,7 +20,6 @@ export default class AuthController {
             res.status(201).json(newUser);
         } catch (error) {
             console.log(error);
-            
             if (error instanceof HttpException) {
                 res.status(error.status).json({ message: error.message });
             } else {
