@@ -6,7 +6,10 @@ import '@mantine/core/styles.css';
 import { lazy, Suspense } from 'react';
 import Loading from './components/loading';
 
-const Home = lazy(() => import('./pages/Home'));
+const Home = lazy(() => import('./pages/home'));
+
+const SignIn = lazy(() => import('./pages/auth/sign-in'));
+const SignUp = lazy(() => import('./pages/auth/sign-up'));
 
 
 createRoot(document.getElementById('root')!).render(
@@ -15,6 +18,8 @@ createRoot(document.getElementById('root')!).render(
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Home />} />
+                    <Route path="/sign-in" element={<SignIn />} />
+                    <Route path="/sign-up" element={<SignUp />} />
                 </Routes>
             </BrowserRouter>
         </Suspense>

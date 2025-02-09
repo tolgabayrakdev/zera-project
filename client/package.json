@@ -15,6 +15,7 @@
     "@mantine/hooks": "^7.16.3",
     "@mantine/modals": "^7.16.3",
     "@mantine/notifications": "^7.16.3",
+    "lucide-react": "^0.475.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router": "^7.1.5"
