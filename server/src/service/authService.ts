@@ -25,13 +25,13 @@ export default class AuthService {
         if (existingUsername) {
             throw new HttpException(400, "Username already exists");
         }
-    
+
         // 2. E-posta var mı kontrol et
         const existingEmail = await this.authRepository.findByEmail(user.email);
         if (existingEmail) {
             throw new HttpException(400, "Email already exists");
         }
-    
+
         // 3. Kullanıcı oluştur
         const createdUser = await this.authRepository.createUser(user);
         const userObject = createdUser.toObject();
@@ -52,5 +52,22 @@ export default class AuthService {
         const accessToken = this.helper.generateAccessToken({ id: user._id });
         const refreshToken = this.helper.generateRefreshToken({ id: user._id });
         return { accessToken, refreshToken };
+    }
+
+    async verifyUser(token: string) {
+        try {
+            const payload: any = this.helper.decodeToken(token);
+            const user = await this.authRepository.findById(payload.id);
+            if (!user) {
+                throw new HttpException(404, "User not found");
+            }
+            return {
+                username: user.username,
+                email: user.email,
+                role: user.role
+            }
+        } catch (error) {
+            throw new HttpException(401, "Invalid token");
+        }
     }
 }

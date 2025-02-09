@@ -46,4 +46,33 @@ export default class AuthController {
             }
         }
     }
+
+    async logout(_req: Request, res: Response) {
+        try {
+            res.clearCookie('accessToken');
+            res.clearCookie('refreshToken');
+            res.status(200).json({ message: "Logout successful" });
+        } catch (error) {
+            if (error instanceof HttpException) {
+                res.status(error.status).json({ message: error.message });
+            } else {
+                res.status(500).json({ message: "Internal Server Error" });
+            }
+        }
+    }
+
+    async verifyUser(req: Request, res: Response) {
+        try {
+            const token: string = req.cookies.access_token;
+            const user = await this.authService.verifyUser(token);
+            res.status(200).json(user);
+        } catch (error) {
+            if (error instanceof HttpException) {
+                res.status(error.status).json({ message: error.message });
+            } else {
+                res.status(500).json({ message: "Internal Server Error" });
+            }
+        }
+    }
+
 }

@@ -10,4 +10,13 @@ export default class Helper {
         return jwt.sign(payload, process.env.JWT_SECRET as string || "JWT_KEY", { expiresIn: '7d' });
     }
 
+    decodeToken(token: string) {
+        try {
+            return jwt.verify(token, process.env.JWT_SECRET as string || "JWT_KEY");
+        } catch (error) {
+            throw new Error('Error!, Token has not decoded!');
+
+        }
+    }
+
 }

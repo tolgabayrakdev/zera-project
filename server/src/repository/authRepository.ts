@@ -23,4 +23,8 @@ export default class AuthRepository {
         return await User.findOne({ username });
     }
 
+    async findById(id: string): Promise<IUser | null> {
+        return await User.findById(id);
+    }
+
 }
