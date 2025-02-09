@@ -1,9 +1,8 @@
-import { IUser } from "../model/user";
-import User from "../model/user";
-import Crypto from "node:crypto";
+import { IUser } from '../model/user';
+import User from '../model/user';
+import Crypto from 'node:crypto';
 
 export default class AuthRepository {
-
     async createUser(user: IUser): Promise<IUser> {
         const hashedPassword = Crypto.createHash('sha256').update(user.password).digest('hex');
         user.password = hashedPassword;
@@ -26,5 +25,4 @@ export default class AuthRepository {
     async findById(id: string): Promise<IUser | null> {
         return await User.findById(id);
     }
-
 }

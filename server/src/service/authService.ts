@@ -1,7 +1,7 @@
-import HttpException from "../exception/httpException";
-import { IUser } from "../model/user";
-import AuthRepository from "../repository/authRepository";
-import Helper from "../util/helper";
+import HttpException from '../exception/httpException';
+import { IUser } from '../model/user';
+import AuthRepository from '../repository/authRepository';
+import Helper from '../util/helper';
 
 export interface IUserResponse {
     username: string;
@@ -23,13 +23,13 @@ export default class AuthService {
         // 1. Kullanıcı adı var mı kontrol et
         const existingUsername = await this.authRepository.findByUsername(user.username);
         if (existingUsername) {
-            throw new HttpException(400, "Username already exists");
+            throw new HttpException(400, 'Username already exists');
         }
 
         // 2. E-posta var mı kontrol et
         const existingEmail = await this.authRepository.findByEmail(user.email);
         if (existingEmail) {
-            throw new HttpException(400, "Email already exists");
+            throw new HttpException(400, 'Email already exists');
         }
 
         // 3. Kullanıcı oluştur
@@ -39,15 +39,17 @@ export default class AuthService {
         return userObject;
     }
 
-
-    async loginUser(email: string, password: string): Promise<{ accessToken: string, refreshToken: string }> {
+    async loginUser(
+        email: string,
+        password: string,
+    ): Promise<{ accessToken: string; refreshToken: string }> {
         const user = await this.authRepository.findByEmail(email);
         if (!user) {
-            throw new HttpException(404, "User not found");
+            throw new HttpException(404, 'User not found');
         }
         const isPasswordValid = await this.authRepository.comparePasswords(password, user.password);
         if (!isPasswordValid) {
-            throw new HttpException(401, "Invalid password");
+            throw new HttpException(401, 'Invalid password');
         }
         const accessToken = this.helper.generateAccessToken({ id: user._id });
         const refreshToken = this.helper.generateRefreshToken({ id: user._id });
@@ -59,15 +61,15 @@ export default class AuthService {
             const payload: any = this.helper.decodeToken(token);
             const user = await this.authRepository.findById(payload.id);
             if (!user) {
-                throw new HttpException(404, "User not found");
+                throw new HttpException(404, 'User not found');
             }
             return {
                 username: user.username,
                 email: user.email,
-                role: user.role
-            }
+                role: user.role,
+            };
         } catch (error) {
-            throw new HttpException(401, "Invalid token");
+            throw new HttpException(401, 'Invalid token');
         }
     }
 }

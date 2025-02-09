@@ -1,17 +1,14 @@
-import { Request, Response } from "express";
+import { Request, Response } from 'express';
 
-import AuthService from "../service/authService";
-import HttpException from "../exception/httpException";
-
+import AuthService from '../service/authService';
+import HttpException from '../exception/httpException';
 
 export default class AuthController {
-
     private authService: AuthService;
 
     constructor(authService: AuthService) {
         this.authService = authService;
     }
-
 
     async register(req: Request, res: Response) {
         try {
@@ -22,7 +19,7 @@ export default class AuthController {
             if (error instanceof HttpException) {
                 res.status(error.status).json({ message: error.message });
             } else {
-                res.status(500).json({ message: "Internal Server Error" });
+                res.status(500).json({ message: 'Internal Server Error' });
             }
         }
     }
@@ -35,13 +32,13 @@ export default class AuthController {
             res.cookie('refreshToken', user.refreshToken, { httpOnly: true });
             res.status(200).json({
                 accessToken: user.accessToken,
-                refreshToken: user.refreshToken
+                refreshToken: user.refreshToken,
             });
         } catch (error) {
             if (error instanceof HttpException) {
                 res.status(error.status).json({ message: error.message });
             } else {
-                res.status(500).json({ message: "Internal Server Error" });
+                res.status(500).json({ message: 'Internal Server Error' });
             }
         }
     }
@@ -50,12 +47,12 @@ export default class AuthController {
         try {
             res.clearCookie('accessToken');
             res.clearCookie('refreshToken');
-            res.status(200).json({ message: "Logout successful" });
+            res.status(200).json({ message: 'Logout successful' });
         } catch (error) {
             if (error instanceof HttpException) {
                 res.status(error.status).json({ message: error.message });
             } else {
-                res.status(500).json({ message: "Internal Server Error" });
+                res.status(500).json({ message: 'Internal Server Error' });
             }
         }
     }
@@ -69,9 +66,8 @@ export default class AuthController {
             if (error instanceof HttpException) {
                 res.status(error.status).json({ message: error.message });
             } else {
-                res.status(500).json({ message: "Internal Server Error" });
+                res.status(500).json({ message: 'Internal Server Error' });
             }
         }
     }
-
 }
