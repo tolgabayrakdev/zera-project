@@ -19,7 +19,6 @@ export default class AuthController {
             const newUser = await this.authService.registerUser(userData);
             res.status(201).json(newUser);
         } catch (error) {
-            console.log(error);
             if (error instanceof HttpException) {
                 res.status(error.status).json({ message: error.message });
             } else {
