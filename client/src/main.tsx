@@ -6,6 +6,8 @@ import '@mantine/core/styles.css';
 import { lazy, Suspense } from 'react';
 import Loading from './components/loading';
 
+const NotFound = lazy(() => import('./pages/error/not-found'));
+
 const Home = lazy(() => import('./pages/home'));
 
 const SignIn = lazy(() => import('./pages/auth/sign-in'));
@@ -17,6 +19,8 @@ createRoot(document.getElementById('root')!).render(
         <Suspense fallback={<Loading />}>
             <BrowserRouter>
                 <Routes>
+                    <Route path="*" element={<NotFound />} />
+
                     <Route path="/" element={<Home />} />
                     <Route path="/sign-in" element={<SignIn />} />
                     <Route path="/sign-up" element={<SignUp />} />
