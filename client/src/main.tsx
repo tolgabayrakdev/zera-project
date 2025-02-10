@@ -12,6 +12,7 @@ const Home = lazy(() => import('./pages/home'));
 
 const SignIn = lazy(() => import('./pages/auth/sign-in'));
 const SignUp = lazy(() => import('./pages/auth/sign-up'));
+const ForgetPassword = lazy(() => import('./pages/auth/forget-password'));
 
 
 createRoot(document.getElementById('root')!).render(
@@ -24,6 +25,7 @@ createRoot(document.getElementById('root')!).render(
                     <Route path="/" element={<Home />} />
                     <Route path="/sign-in" element={<SignIn />} />
                     <Route path="/sign-up" element={<SignUp />} />
+                    <Route path="/forget-password" element={<ForgetPassword />} />
                 </Routes>
             </BrowserRouter>
         </Suspense>

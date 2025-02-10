@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
     TextInput,
-    PasswordInput,
     Button,
     Anchor,
     Paper,
@@ -14,7 +13,7 @@ import { useForm } from "@mantine/form";
 import { useNavigate } from "react-router";
 import { AlertCircle } from "lucide-react";
 
-const SignIn = () => {
+const ForgetPassword = () => {
     const navigate = useNavigate();
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
@@ -22,12 +21,9 @@ const SignIn = () => {
     const form = useForm({
         initialValues: {
             email: "",
-            password: "",
         },
         validate: {
             email: (value) => (/\S+@\S+\.\S+/.test(value) ? null : "Geçersiz email"),
-            password: (value) =>
-                value.length >= 6 ? null : "Şifre en az 6 karakter olmalı",
         },
     });
 
@@ -49,7 +45,6 @@ const SignIn = () => {
                 credentials: "include",
                 body: JSON.stringify({
                     email: form.values.email,
-                    password: form.values.password,
                 }),
             });
 
@@ -74,7 +69,7 @@ const SignIn = () => {
             <Container size={420} w="100%">
                 <Paper p="lg" radius="md">
                     <Title ta="center" mb={30}>
-                        Giriş Yap
+                        Şifremi Unuttum
                     </Title>
 
                     {error && (
@@ -97,38 +92,20 @@ const SignIn = () => {
                             disabled={loading}
                         />
 
-                        <PasswordInput
-                            label="Şifre"
-                            placeholder="Şifrenizi girin"
-                            required
-                            mt="md"
-                            {...form.getInputProps("password")}
-                            disabled={loading}
-                        />
-
-                    <Anchor
-                        ta="left"
-                        href="/forget-password"
-                        mt="xs"
-                        size="sm"
-                        style={{ display: "block", textAlign: "center" }}
-                    >
-                        Şifremi unuttum ?
-                    </Anchor>
-
-                        <Button fullWidth mt="md" type="submit" loading={loading}>
-                            Giriş Yap
+                
+                        <Button fullWidth mt="xl" type="submit" loading={loading}>
+                            Sıfırlama bağlantısını gönder
                         </Button>
                     </form>
 
                     <Anchor
                         ta="center"
-                        href="/sign-up"
+                        href="/sign-in"
                         mt="sm"
                         size="sm"
                         style={{ display: "block", textAlign: "center" }}
                     >
-                        Hesabınız yok mu? Kayıt olun
+                        Giriş ekranına geri dön
                     </Anchor>
                 </Paper>
             </Container>
@@ -136,4 +113,4 @@ const SignIn = () => {
     );
 };
 
-export default SignIn;
+export default ForgetPassword;
