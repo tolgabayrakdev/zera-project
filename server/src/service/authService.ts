@@ -3,7 +3,7 @@ import { IUser } from '../model/user';
 import AuthRepository from '../repository/authRepository';
 import Helper from '../util/helper';
 
-export interface IUserResponse {
+interface IUserResponse {
     username: string;
     email: string;
     _id: string;
