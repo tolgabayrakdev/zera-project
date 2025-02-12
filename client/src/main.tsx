@@ -15,6 +15,10 @@ const SignUp = lazy(() => import('./pages/auth/sign-up'));
 const ForgetPassword = lazy(() => import('./pages/auth/forget-password'));
 
 
+const DashboardLayout = lazy(() => import('./layouts/dashboard-layout'));
+const DashboardMain = lazy(() => import('./pages/dashboard/main'));
+
+
 createRoot(document.getElementById('root')!).render(
     <MantineProvider>
         <Suspense fallback={<Loading />}>
@@ -26,6 +30,10 @@ createRoot(document.getElementById('root')!).render(
                     <Route path="/sign-in" element={<SignIn />} />
                     <Route path="/sign-up" element={<SignUp />} />
                     <Route path="/forget-password" element={<ForgetPassword />} />
+
+                    <Route path="/dashboard" element={<DashboardLayout />}>
+                        <Route path="main" element={<DashboardMain />} />
+                    </Route>
                 </Routes>
             </BrowserRouter>
         </Suspense>

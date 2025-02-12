@@ -59,7 +59,7 @@ export default class AuthController {
 
     async verifyUser(req: Request, res: Response) {
         try {
-            const token: string = req.cookies.access_token;
+            const token: string = req.cookies.accessToken;
             const user = await this.authService.verifyUser(token);
             res.status(200).json(user);
         } catch (error) {
