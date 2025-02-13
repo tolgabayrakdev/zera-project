@@ -13,8 +13,8 @@ export default class OrderService {
         return await this.orderRepository.save(order);
     }
 
-    async deleteOrder(id: string): Promise<void> {
-        await this.orderRepository.destroy(id);
+    async deleteOrder(id: string, userId: string): Promise<void> {
+        await this.orderRepository.destroy(id, userId);
     }
 
 }

@@ -6,13 +6,15 @@ export default class OrderRepository {
         return await Order.create(order);
     }
 
-    async findById(id: string): Promise<IOrder | null> {
-        return await Order.findById(id);
+    async findById(id: string, userId: string): Promise<IOrder | null> {
+        return await Order.findOne({ _id: id, userId });
     }
 
-    async destroy(id: string): Promise<void> {
-        await Order.findByIdAndDelete(id);
+    async findAllByUser(userId: string): Promise<IOrder[]> {
+        return await Order.find({ userId }); 
     }
 
-
+    async destroy(id: string, userId: string): Promise<void> {
+        await Order.findOneAndDelete({ _id: id, userId });
+    }
 }

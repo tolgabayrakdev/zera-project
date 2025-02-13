@@ -1,8 +1,9 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface IOrder extends Document {
-    customer: string;
-    phone: string;
+    owner: mongoose.Schema.Types.ObjectId; // Siparişi yöneten kullanıcı (Admin/Bayi/Mağaza)
+    customerName: string; // Sipariş veren müşteri adı
+    customerPhone: string; // Sipariş veren müşteri telefon numarası
     items: { name: string; quantity: number; price: number }[];
     total: number;
     status: "Beklemede" | "Hazırlanıyor" | "Kargoya Verildi" | "Teslim Edildi" | "İptal Edildi";
@@ -10,8 +11,9 @@ export interface IOrder extends Document {
 }
 
 const OrderSchema = new Schema<IOrder>({
-    customer: { type: String, required: true },
-    phone: { type: String, required: true },
+    owner: { type: Schema.Types.ObjectId, ref: "User", required: true }, // Kullanıcı ile ilişkilendirme
+    customerName: { type: String, required: true }, // Müşteri adı
+    customerPhone: { type: String, required: true }, // Müşteri telefon numarası
     items: [
         {
             name: { type: String, required: true },
